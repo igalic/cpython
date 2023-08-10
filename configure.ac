@@ -2254,7 +2254,8 @@ AC_CHECK_HEADERS([net/if.h], [], [],
 ])
 
 # On Linux, netlink.h requires asm/types.h
-AC_CHECK_HEADERS(linux/netlink.h,,,[
+# On FreeBSD, netlink.h is located in netlink/netlink.h
+AC_CHECK_HEADERS([linux/netlink.h netlink/netlink.h], [], [], [
 #ifdef HAVE_ASM_TYPES_H
 #include <asm/types.h>
 #endif
@@ -2348,12 +2349,7 @@ AC_DEFINE(_FILE_OFFSET_BITS, 64,
 [This must be set to 64 on some systems to enable large file support.])
 fi
 
-# Add some code to confdefs.h so that the test for off_t works on SCO
-cat >> confdefs.h <<\EOF
-#if defined(SCO_DS)
-#undef _OFF_T
-#endif
-EOF
+# Add some code to con
 
 # Type availability checks
 AC_TYPE_MODE_T
