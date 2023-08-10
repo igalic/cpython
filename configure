@@ -9463,9 +9463,11 @@ done
 
 
 # On Linux, netlink.h requires asm/types.h
-for ac_header in linux/netlink.h
+# On FreeBSD, netlink.h is located in netlink/netlink.h
+for ac_header in linux/netlink.h netlink/netlink.h
 do :
-  ac_fn_c_check_header_compile "$LINENO" "linux/netlink.h" "ac_cv_header_linux_netlink_h" "
+  as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
+ac_fn_c_check_header_compile "$LINENO" "$ac_header" "$as_ac_Header" "
 #ifdef HAVE_ASM_TYPES_H
 #include <asm/types.h>
 #endif
@@ -9474,9 +9476,9 @@ do :
 #endif
 
 "
-if test "x$ac_cv_header_linux_netlink_h" = xyes; then :
+if eval test \"x\$"$as_ac_Header"\" = x"yes"; then :
   cat >>confdefs.h <<_ACEOF
-#define HAVE_LINUX_NETLINK_H 1
+#define `$as_echo "HAVE_$ac_header" | $as_tr_cpp` 1
 _ACEOF
 
 fi
